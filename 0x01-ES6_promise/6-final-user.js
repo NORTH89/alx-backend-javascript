@@ -10,8 +10,8 @@ export default async function handleProfileSignup(firstName, lastName, filename)
     ]);
 
     return [
-      { status: userResult.status, value: userResult.status === 'fulfilled' ? userResult.value : userResult.reason },
-      { status: photoResult.status, value: photoResult.status === 'fulfilled' ? photoResult.value : photoResult.reason },
+      { status: 'fulfilled', value: userResult.value },
+      { status: 'fulfilled', value: photoResult.value },
     ];
   } catch (error) {
     return [
