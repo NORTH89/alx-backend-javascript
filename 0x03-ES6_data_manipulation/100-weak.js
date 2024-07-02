@@ -1,18 +1,9 @@
-const weakMap = new WeakMap();
+// eslint-disable-next-line import/prefer-default-export
+export const weakMap = new WeakMap();
 
-function queryAPI(endpoint) {
-  if (!weakMap.has(endpoint)) {
-    weakMap.set(endpoint, 0);
+export function queryAPI(endpoint) {
+  if (weakMap.get(endpoint) && weakMap.get(endpoint) + 1 >= 5) {
+    throw new Error('Endpoint load is high.');
   }
-
-  let queryCount = weakMap.get(endpoint);
-  queryCount += 1;
-
-  if (queryCount >= 5) {
-    throw new Error('Endpoint load is high');
-  }
-
-  weakMap.set(endpoint, queryCount);
+  weakMap.set(endpoint, (weakMap.get(endpoint) || 0) + 1);
 }
-
-export { weakMap, queryAPI };
